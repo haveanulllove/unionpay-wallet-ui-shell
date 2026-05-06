@@ -83,7 +83,7 @@ function App() {
   const [page, setPage] = useState(() => {
     const query = new URLSearchParams(window.location.search);
     const pageParam = query.get("page");
-    return pageParam === "mini-programs" || pageParam === "credit-report" || pageParam === "credit-report-view"
+    return pageParam === "mini-programs" || pageParam === "credit-report" || pageParam === "credit-report-view" || pageParam === "credit-report-history"
       ? pageParam
       : "home";
   });
@@ -123,7 +123,10 @@ function App() {
             onBack={() => setPage("mini-programs")}
             onQuery={() => setCreditReportReady(true)}
             onView={() => setPage("credit-report-view")}
+            onHistory={() => setPage("credit-report-history")}
           />
+        ) : activeTab === "home" && page === "credit-report-history" ? (
+          <CreditReportHistoryScreen onBack={() => setPage("credit-report")} onView={() => setPage("credit-report-view")} onTap={ping} />
         ) : activeTab === "home" && page === "credit-report-view" ? (
           <CreditReportViewer onBack={() => setPage("credit-report")} />
         ) : activeTab === "home" ? (
@@ -369,7 +372,7 @@ function MiniProgramItem({ item, onTap, onOpenReport }) {
   );
 }
 
-function CreditReportScreen({ ready, onBack, onQuery, onView }) {
+function CreditReportScreen({ ready, onBack, onQuery, onView, onHistory }) {
   return (
     <div className="screen credit-report-screen">
       <PageNav title="信用报告" rightText="" onBack={onBack} compactAction />
@@ -404,7 +407,7 @@ function CreditReportScreen({ ready, onBack, onQuery, onView }) {
         免费申请查询
       </button>
 
-      <button className="credit-history-btn" onClick={() => {}}>查询记录</button>
+      <button className="credit-history-btn" onClick={onHistory}>查询记录</button>
 
       <section className="credit-info-card">
         <h2>查询须知</h2>
@@ -421,6 +424,52 @@ function CreditReportScreen({ ready, onBack, onQuery, onView }) {
   );
 }
 
+
+
+function CreditReportHistoryScreen({ onBack, onView, onTap }) {
+  const expiredItems = ["2026.04.04", "2026.03.01", "2026.02.07"];
+
+  return (
+    <div className="screen credit-report-screen credit-history-screen">
+      <PageNav title="查询记录" rightText="" onBack={onBack} compactAction />
+
+      <section className="credit-history-content">
+        <div className="credit-year">2026 <ChevronDown size={24} /></div>
+        <h2>未过期</h2>
+
+        <article className="history-card active">
+          <span className="history-doc-icon" aria-hidden="true" />
+          <div className="history-main">
+            <strong>个人信用报告（张*巍）</strong>
+            <p>生成时间：2026.05.01</p>
+            <div className="history-actions">
+              <button onClick={() => onTap("邮箱保存")}>邮箱保存</button>
+              <button onClick={onView}>查看报告</button>
+            </div>
+          </div>
+          <em>3日后到期</em>
+        </article>
+
+        <h2>已过期</h2>
+        {expiredItems.map((date) => (
+          <article key={date} className="history-card expired">
+            <span className="history-doc-icon" aria-hidden="true" />
+            <div className="history-main">
+              <strong>个人信用报告（张*巍）</strong>
+              <p>生成时间：{date}</p>
+            </div>
+            <em>已过期</em>
+          </article>
+        ))}
+      </section>
+
+      <footer className="history-footnote">
+        <p>ⓘ 信用报告将在24小时内（最快4小时内）返回查询结果。为了您的信息安全，信用报告仅保存7日，到期将自动删除，请注意保存。</p>
+        <p>ⓘ 在线查看报告前需验证您的支付密码，若输入密码后报错请您检查是否设置支付密码或者支付密码是否输入正确。</p>
+      </footer>
+    </div>
+  );
+}
 function CreditReportViewer({ onBack }) {
   return (
     <div className="screen credit-report-screen report-view-screen">

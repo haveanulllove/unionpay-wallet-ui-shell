@@ -1716,3 +1716,72 @@ button {
     font-size: 17px;
   }
 }
+
+.credit-history-screen {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+
+.credit-history-content {
+  flex: 1;
+  padding: 14px 16px 20px;
+  overflow-y: auto;
+}
+
+.credit-year {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #2f3f50;
+  font-size: 22px;
+}
+
+.credit-history-content h2 {
+  margin: 8px 0 14px;
+  color: #5a5a5a;
+  font-size: 44px;
+  font-weight: 500;
+}
+
+.history-card {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  gap: 14px;
+  padding: 18px;
+  margin-bottom: 14px;
+  background: #f3f3f3;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+}
+
+.history-doc-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #6d95f0, #4ca3f7);
+  position: relative;
+}
+
+.history-doc-icon::before,
+.history-doc-icon::after {content:"";position:absolute;left:12px;right:12px;height:5px;background:#d9e8ff;border-radius:99px;}
+.history-doc-icon::before{top:16px;}
+.history-doc-icon::after{top:30px;}
+
+.history-main strong { font-size: 21px; }
+.history-main p { margin: 10px 0 0; font-size: 19px; color: #3a3a3a; font-weight: 600; }
+.history-card em { align-self: center; font-style: normal; color: #adadb0; font-size: 20px; }
+.history-card.active em { color: #cc2d3f; }
+
+.history-actions { display:flex; gap:12px; margin-top:14px; }
+.history-actions button { min-width:120px; height:42px; border-radius:21px; background:linear-gradient(135deg,#4c96f7,#4a78ea); color:#fff; font-size:18px; }
+
+.history-footnote {
+  padding: 14px 16px 28px;
+  background: #f8ecee;
+  color: #bf2235;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.history-footnote p { margin: 0 0 10px; }
