@@ -1427,26 +1427,28 @@ button {
   border-radius: 999px;
 }
 
-.credit-report-screen {
+ .credit-report-screen {
   inset: 0;
-  padding: 18px 16px 28px;
+  padding: 0 0 22px;
   color: #202124;
-  background: #f6f6f6;
+  background: #efefef;
 }
 
 .page-nav {
-  height: 58px;
+  height: 86px;
   display: grid;
-  grid-template-columns: 52px minmax(0, 1fr) 52px;
-  align-items: center;
+  grid-template-columns: 58px minmax(0, 1fr) 98px;
+  align-items: end;
+  padding: 0 16px 12px;
+  background: #fff;
 }
 
 .page-nav h1 {
   margin: 0;
   text-align: center;
-  font-size: 25px;
+  font-size: 48px;
   line-height: 1;
-  font-weight: 900;
+  font-weight: 500;
 }
 
 .page-back,
@@ -1468,127 +1470,51 @@ button {
   font-size: 17px;
 }
 
-.credit-hero-card,
-.credit-status-card,
-.credit-info-card,
-.report-paper {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(37, 44, 65, 0.05);
+.page-nav-right.compact {
+  width: 94px;
+  height: 48px;
+  border-radius: 24px;
+  border: 1px solid #ececec;
 }
 
-.credit-hero-card {
+.credit-banner {
+  margin-top: 0;
+  min-height: 250px;
+  padding: 28px 26px;
   display: grid;
-  justify-items: center;
-  gap: 10px;
-  margin-top: 14px;
-  padding: 28px 20px 24px;
-  text-align: center;
-}
-
-.credit-hero-icon {
-  width: 66px;
-  height: 66px;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  background: linear-gradient(160deg, #27c9a7, #16a6e2);
-  border-radius: 18px;
-}
-
-.credit-hero-card strong {
-  font-size: 23px;
-  font-weight: 900;
-}
-
-.credit-hero-card span:last-child {
-  color: #8a8a8a;
-  font-size: 14px;
-}
-
-.credit-status-card {
-  margin-top: 14px;
-  padding: 18px;
-}
-
-.credit-status-title {
-  display: flex;
+  grid-template-columns: 1fr 180px;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.credit-status-title strong {
-  font-size: 20px;
-  font-weight: 900;
-}
-
-.credit-status-title span {
-  color: #9a9a9a;
-  font-size: 13px;
-}
-
-.credit-step-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 18px;
-}
-
-.credit-step-list span {
-  min-height: 34px;
-  display: grid;
-  place-items: center;
-  color: #9a9a9a;
-  background: #f2f2f2;
-  border-radius: 18px;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.credit-step-list span.done {
-  color: #e81c23;
-  background: #fff0f2;
-}
-
-.credit-info-card {
-  margin-top: 14px;
-  padding: 18px;
-}
-
-.credit-info-card h2 {
-  margin: 0 0 12px;
-  font-size: 18px;
-}
-
-.credit-info-card p {
-  margin: 8px 0;
-  color: #777;
-  font-size: 14px;
-  line-height: 1.45;
-}
-
-.credit-primary,
-.credit-secondary {
-  width: 100%;
-  height: 52px;
-  border-radius: 26px;
-  font-weight: 900;
-}
-
-.credit-primary {
-  margin-top: 22px;
   color: #fff;
-  background: linear-gradient(135deg, #ef1d55, #e81c23);
-  box-shadow: 0 9px 18px rgba(232, 28, 35, 0.22);
+  background: linear-gradient(135deg, #6a89df 0%, #4aa4ff 100%);
 }
 
-.credit-secondary {
-  margin-top: 12px;
-  color: #e81c23;
-  background: #fff;
-}
+.credit-banner strong { font-size: 62px; font-weight: 700; }
+.credit-banner p { margin: 24px 0 0; font-size: 28px; font-weight: 700; }
+.credit-banner-illu { width: 148px; height: 176px; justify-self: end; border-radius: 18px; background: linear-gradient(180deg,#d8edff,#a8d2ff); }
 
+.credit-form-card { margin: -26px 16px 0; background:#fff; border-radius:22px; overflow:hidden; }
+.credit-form-title { height: 76px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; border-bottom:1px solid #efefef; }
+.credit-form-title strong { font-size: 24px; }
+.credit-service-icon { width:36px;height:36px;border:3px solid #1f4f8e;border-radius:50%; }
+.credit-user-block { padding:20px 22px; border-bottom:1px solid #efefef; }
+.credit-user-block h2{ margin:0; font-size:24px;}
+.credit-user-block p{ margin:10px 0 0; font-size:19px; color:#3a3a3a;}
+.credit-code-row{height:74px;display:grid;grid-template-columns:80px 1fr auto;align-items:center;padding:0 22px;gap:14px;}
+.credit-code-row span{font-size:22px;}
+.credit-input-placeholder{color:#cbcbcb;}
+.credit-code-row button{padding-left:16px;border-left:1px solid #e7e7e7;color:#4f9bd6;background:transparent;font-size:22px;}
+.credit-code-tip{margin:12px 16px 0;color:#626262;font-size:18px;}
+
+.credit-primary { width: 380px; max-width: calc(100% - 110px); height: 56px; margin: 26px auto 0; display:block; color:#fff; font-size:22px; font-weight:700; border-radius:24px; background:linear-gradient(135deg,#82b3e2,#95a6ef); }
+.credit-history-btn{display:block;margin:20px auto 0;color:#4091cc;background:transparent;font-size:22px;font-weight:700;}
+
+.credit-info-card { margin: 26px 16px 0; padding: 0; background: transparent; box-shadow:none; border-radius:0; }
+.credit-info-card h2 { margin: 0; font-size: 52px; font-weight:600; color:#444; }
+.credit-info-card > a { float:right; margin-top:-42px; color:#5f9ecf; text-decoration:none; font-size:20px; }
+.credit-info-card ol { margin: 18px 0 0; padding-left: 0; list-style:none; color:#555; font-size:22px; line-height:1.52; }
+.credit-info-card li { margin: 10px 0; }
+
+.credit-secondary { display:none; }
 .report-view-screen {
   overflow-y: auto;
 }

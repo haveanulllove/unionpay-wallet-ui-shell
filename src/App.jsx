@@ -5,7 +5,6 @@ import {
   ChevronRight,
   CirclePlus,
   CreditCard,
-  FileText,
   Gift,
   Home,
   Landmark,
@@ -373,41 +372,51 @@ function MiniProgramItem({ item, onTap, onOpenReport }) {
 function CreditReportScreen({ ready, onBack, onQuery, onView }) {
   return (
     <div className="screen credit-report-screen">
-      <PageNav title="信用报告查询" rightText="说明" onBack={onBack} />
-      <section className="credit-hero-card">
-        <span className="credit-hero-icon">
-          <FileText size={34} strokeWidth={2.2} />
-        </span>
-        <strong>个人信用报告</strong>
-        <span>本地空壳演示，模拟查询与报告生成流程。</span>
+      <PageNav title="信用报告" rightText="" onBack={onBack} compactAction />
+
+      <section className="credit-banner">
+        <div>
+          <strong>个人信用报告</strong>
+          <p>快捷查询&nbsp;&nbsp;安全可靠</p>
+        </div>
+        <span className="credit-banner-illu" aria-hidden="true" />
       </section>
 
-      <section className="credit-status-card">
-        <div className="credit-status-title">
-          <strong>{ready ? "报告已生成" : "可申请查询"}</strong>
-          <span>{ready ? "2026-05-05 20:32" : "预计几分钟内生成"}</span>
+      <section className="credit-form-card">
+        <div className="credit-form-title">
+          <strong>身份信息</strong>
+          <span className="credit-service-icon" aria-hidden="true" />
         </div>
-        <div className="credit-step-list">
-          <span className="done">身份校验</span>
-          <span className={ready ? "done" : ""}>查询提交</span>
-          <span className={ready ? "done" : ""}>查看报告</span>
+        <div className="credit-user-block">
+          <h2>张*巍</h2>
+          <p>2103**********0610</p>
+        </div>
+        <div className="credit-code-row">
+          <span>验证码</span>
+          <span className="credit-input-placeholder">请输入</span>
+          <button>发送验证码</button>
         </div>
       </section>
+
+      <p className="credit-code-tip">验证码将会发送到您的注册手机号187****0537</p>
+
+      <button className="credit-primary" onClick={ready ? onView : onQuery}>
+        免费申请查询
+      </button>
+
+      <button className="credit-history-btn" onClick={() => {}}>查询记录</button>
 
       <section className="credit-info-card">
         <h2>查询须知</h2>
-        <p>当前页面不连接真实征信系统，只保留演示流程和报告样式。</p>
-        <p>查询完成后可查看一份本地生成的示例报告。</p>
+        <a href="#" onClick={(event) => event.preventDefault()}>查看协议</a>
+        <ol>
+          <li>除了信息提供机构，任何其他机构无权处理您个人信用报告上的不良记录，请警惕以处理不良信用记录为诱饵的诈骗活动。</li>
+          <li>个人信用报告涉及您的个人隐私，为确保隐私安全，该报告仅限本人查询，查询成功后请妥善保管您的报告。</li>
+          <li>过于频繁查询信用报告可能会影响您的信用卡及贷款申请额度和进度，具体以放款机构规则为准。</li>
+          <li>查询成功后您的信用报告仅保留7天，7天后自动删除，请您收到报告生成短信后及时查看报告。</li>
+          <li>本功能提供的个人信用报告为简版，与人民银行征信中心官网一致，仅供本人了解自身征信情况。</li>
+        </ol>
       </section>
-
-      <button className="credit-primary" onClick={ready ? onView : onQuery}>
-        {ready ? "查看信用报告" : "申请查询"}
-      </button>
-      {ready && (
-        <button className="credit-secondary" onClick={onQuery}>
-          重新查询
-        </button>
-      )}
     </div>
   );
 }
@@ -450,14 +459,14 @@ function CreditReportViewer({ onBack }) {
   );
 }
 
-function PageNav({ title, rightText, onBack }) {
+function PageNav({ title, rightText, onBack, compactAction = false }) {
   return (
     <nav className="page-nav">
       <button className="page-back" aria-label="返回" onClick={onBack}>
         <ChevronLeft size={34} strokeWidth={2.4} />
       </button>
       <h1>{title}</h1>
-      <button className="page-nav-right">{rightText}</button>
+      <button className={`page-nav-right ${compactAction ? "compact" : ""}`}>{rightText || "···"}</button>
     </nav>
   );
 }
