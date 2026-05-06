@@ -1,0 +1,465 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>äºéªä»å°ç¨åºææ¡£ä¸­å¿</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="description"
+      content="äºéªä»å°ç¨åºå¨çº¿ææ¡£,äºéªä»ä¸ºå°ç¨åºæä¾äºåºäº HTML5 éç¨è¯­è¨çåç«¯æ¸²æå®¹å¨ãå°ç¨åº UI ç»ä»¶ãååå°å¼æ¾ APIãåä½æ¹å¯éè¿æ åH5æ¶æå®ç°å°ç¨åºåç«¯é¡µé¢ã"
+    />
+    <meta
+      name="Keywords"
+      content="å°ç¨åºæ¥å¥æå,å¼æ¾å¹³å°,æä½æå¼,å°ç¨åºå¹³å°,è¿è¥è§è,å°ç¨åºä¸çº¿å®¡æ ¸è§è,æäº¤å®¡æ ¸éç¥,å¿«éèç»"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="stylesheet" href="./css/vue.css" />
+    <link rel="stylesheet" href="./css/index.css?v=0.000019" />
+    <link rel="stylesheet" href="./css/util.css?v=1.3" />
+    <link rel="stylesheet" href="./css/sidebar.css" />
+    <link rel="stylesheet" type="text/css" href="./css/overlay.css" />
+    <link rel="stylesheet" href="./css/iconfont.css" />
+    <link rel="stylesheet" href="./css/viewer.min.css" />
+    <link rel="icon" type="image/x-icon" href="./media/icon.png" />
+    <script src="./js/cache.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <script src="./js/initialize.js?v=0.000001"></script>
+    <style>
+      .sidebar-nav > ul > li > ul > li > ul > li > a:before {
+        content: "";
+      }
+
+      .sidebar-nav > ul > li > ul > li > ul > li.active > a:before {
+        content: "";
+      }
+
+      em.search-keyword-n {
+        background: #ffff00;
+        color: #000 !important;
+        font-style: normal;
+        padding: 2px;
+        border-radius: 2px;
+      }
+    </style>
+
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?be296c926f09279b6a4c0d2b560a68e7";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script>
+      window.onload = function () {
+        mydialog.getFirOverlay();
+      };
+
+      function GetQueryString(param) {
+        var currentUrl = window.location.href; //è·åå½åè¿æ¥
+        var arr = currentUrl.split("?"); //åå²ååååæ°çé
+        if (arr.length > 1) {
+          arr = arr[1].split("&"); //åå²åæ°
+          for (var i = 0; i < arr.length; i++) {
+            var tem = arr[i].split("="); //åå²åæ°åååæ°åå®¹
+            if (tem[0] == param) {
+              return tem[1];
+            }
+          }
+          return null;
+        } else {
+          return null;
+        }
+      }
+      // ç®åçé²æå¨å½æ°
+      function debounce(func, wait, immediate) {
+        // å®æ¶å¨åé
+        var timeout;
+        return function () {
+          // æ¯æ¬¡è§¦å scroll handler æ¶åæ¸é¤å®æ¶å¨
+          clearTimeout(timeout);
+          // æå® xx ms åè§¦åçæ­£æ³è¿è¡çæä½ handler
+          timeout = setTimeout(func, wait);
+        };
+      }
+      // å®éæ³ç»å®å¨ scroll äºä»¶ä¸ç handler
+      function realFunc() {
+        var scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        // åä¸æ»å¨64pxåéèäºçº§å¯¼èªæ 
+        if (scrollTop >= "64" && document.body.clientWidth > 950) {
+          document.getElementById("header").style.display = "none";
+          document.getElementById("secound").style.top = "0";
+          document.getElementById("secound").style.position = "fixed";
+          var sidebar = document.getElementsByClassName("sidebar")[0];
+          if (sidebar !== undefined) {
+            sidebar.style.top = "60px";
+          }
+        }
+        // è¿åé¡¶é¨æ¶æ¾ç¤ºäºçº§å¯¼èªæ 
+        if (scrollTop <= "64" && document.body.clientWidth > 950) {
+          document.getElementById("header").style.display = "block";
+          document.getElementById("secound").style.position = "absolute";
+          document.getElementById("secound").style.top = "66px";
+          document.getElementsByClassName("sidebar")[0].style.top = "120px";
+        }
+      }
+      // éç¨äºé²æå¨
+      window.addEventListener("scroll", debounce(realFunc, 10));
+
+      //æ¾ç¤ºæç´¢æ¡
+      function appearsearch() {
+        mydialog.appearSearch();
+      }
+      //éèæç´¢æ¡
+      function hidesearch() {
+        mydialog.hideSearch();
+      }
+      //åæ¢è·¯ç±
+      function change1(num) {
+        mydialog.id1 = num;
+        var allmenu = mydialog.def.dataList;
+        allmenu.forEach(function (item) {
+          if (item.id == num) {
+            mydialog.id2 = item.children[0].id;
+          }
+        });
+        mydialog.changeNav1(num);
+        mydialog.changeNav2(mydialog.id2);
+        mydialog.gethref(num);
+      }
+
+      function change2(num) {
+        mydialog.id2 = num;
+        mydialog.changeNav2(num);
+        mydialog.gethref(num);
+      }
+      // åæ¢ç§»å¨ç«¯äºçº§ç®å½
+      function mobNavigator(num) {
+        mydialog.id1 = num.split("nav-")[1];
+        var allmenu = mydialog.def.dataList;
+        allmenu.forEach(function (item) {
+          if (item.id == num) {
+            mydialog.id2 = item.children[0].id;
+          }
+        });
+        mydialog.changeOverlay(num);
+      }
+      // ç§»å¨ç«¯åæ¢è·¯ç±
+      function mobChange2(num) {
+        mydialog.id2 = num.split("mob-")[1];
+        var str = num.split("mob-")[1];
+        mydialog.gethref(str);
+        let closebtn = document
+          .getElementsByClassName("overlay-close")[0]
+          .click();
+      }
+    </script>
+    <script>
+      // Keep a single global ViewerJS instance and reuse/destroy on route changes
+      var viewerInstance = null;
+      window.$docsify = {
+        name: "äºéªä»å°ç¨åºææ¡£ä¸­å¿",
+        repo: "",
+        homepage: "",
+        loadSidebar: true, // å è½½èªå®ä¹ä¾§è¾¹æ 
+        maxLevel: 3, // é»è®¤æåµä¸ä¼æåææ¡£ä¸­æææ é¢æ¸²ææç®å½ï¼å¯éç½®æå¤§æ¯ææ¸²æçæ é¢å±çº§ã
+        subMaxLevel: 3, // çæç®å½çæå¤§å±çº§
+        sidebarDisplayLevel: 2,
+        auto2top: true, //åæ¢é¡µé¢åèªå¨è·³è½¬å°é¡µé¢é¡¶é¨
+        topMargin: 80, //åå®¹é¡µå¨æ»å¨å°æå®çéç¹æ¶ï¼è·ç¦»é¡µé¢é¡¶é¨æä¸å®ç©ºé´
+        noEmoji: true, //ç¦ç¨è¡¨æç¬¦å·
+        mergeNavbar: false, //å¯¼èªæ ä¸å°å±å¹ä¸çä¾§è¾¹æ ä¸åå¹¶ã
+        alias: {
+          // å®ä¹è·¯ç±å«åï¼å¯ä»¥æ´èªç±çå®ä¹è·¯ç±è§åã æ¯ææ­£å
+          "/.*/_sidebar.md": "/_sidebar.md", //é²æ­¢æå¤åé
+          "/.*/_navbar.md": "/_navbar.md",
+        },
+        copyCode: {
+          buttonText: "å¤å¶",
+          ERRORTEXT: "å¤å¶å¤±è´¥",
+          successText: "å¤å¶æå",
+        },
+        search: {
+          maxAge: 0,
+          placeholder: "æç´¢",
+          namespace: "website-1",
+          noData: "æ¾ä¸å°ç»æ",
+          depth: 4,
+        },
+        pagination: {
+          previousText: "ä¸ä¸ç« è",
+          nextText: "ä¸ä¸ç« è",
+          crossChapter: true,
+          crossChapterText: true,
+        },
+        plugins: [
+          function (hook, vm) {
+            //å®ä¹é¡µè
+            var footer = [
+              '<footer style="text-align:center;">',
+              // '<hr>',
+              // '<span style="font-size:14px;">   ä¸­å½é¶èçæææ2002-2021æ²ª ICPå¤07032180å·</span>',
+              "</footer>",
+            ].join("");
+            hook.init(function () {
+             
+              if (cacheGet('yunshanfuMenu')) {
+                var result =JSON.parse(cacheGet('yunshanfuMenu')) ;
+                mydialog = new MyDialog({
+                  dataList: result.content,
+                  time: result.time,
+                  updatetime: result.updateTime,
+                });
+
+                sessionStorage.setItem(
+                  "list",
+                  JSON.stringify(result.updateTime)
+                );
+              } else {
+                $.ajax({
+                  url: "./apis/menu.json?v=" + new Date().getTime(),
+                  type: "get",
+                  dataType: "json",
+                  async: false,
+                  success: function (result) {
+                    cacheSet('yunshanfuMenu', JSON.stringify(result), 600);
+                  
+                  
+                    mydialog = new MyDialog({
+                      dataList: result.content,
+                      time: result.time,
+                      updatetime: result.updateTime,
+                    });
+
+                    sessionStorage.setItem(
+                      "list",
+                      JSON.stringify(result.updateTime)
+                    );
+                  },
+                });
+              }
+
+              // åå§åå®æåè°ç¨ï¼åªè°ç¨ä¸æ¬¡ï¼æ²¡æåæ°ã
+              mydialog.insertHtml();
+            });
+
+            hook.afterEach(function (html) {
+              // è§£ææ html åè°ç¨ã
+              // beforeEach å afterEach æ¯æå¤çå¼æ­¥é»è¾
+              // ...
+              // å¼æ­¥å¤çå®æåè°ç¨ next(html) è¿åç»æ
+              var list = JSON.parse(sessionStorage.getItem("list"));
+              var j, k;
+              // var timestamp = Date.parse(Date().substring(0,21))
+              var timestamp = Date.parse(new Date());
+              console.log(timestamp);
+              list.forEach((value) => {
+                if (value.url === vm.route.path) {
+                  if (value.updateTime !== undefined && value.updateTime !== "")
+                    j = value.updateTime;
+                  return;
+                }
+              });
+              console.log(j);
+            
+              if (cacheGet('yunshanfuMenu')) {
+                var result =JSON.parse(cacheGet('yunshanfuMenu')) ;
+                mydialog = new MyDialog({
+                  dataList: result.content,
+                  time: result.time,
+                  updatetime: result.updateTime,
+                });
+
+                sessionStorage.setItem(
+                  "list",
+                  JSON.stringify(result.updateTime)
+                );
+              } else {
+                $.ajax({
+                  url: "./apis/menu.json",
+                  type: "get",
+                  dataType: "json",
+                  async: false,
+                  success: function (result) {
+                   
+                   
+                    cacheSet('yunshanfuMenu', JSON.stringify(result), 600);
+                  
+                  
+                  
+                    mydialog = new MyDialog({
+                      dataList: result.content,
+                      time: result.time,
+                      updatetime: result.updateTime,
+                    });
+
+                    sessionStorage.setItem(
+                      "list",
+                      JSON.stringify(result.updateTime)
+                    );
+                  },
+                });
+              }
+              return html + footer;
+            });
+
+            hook.doneEach(function () {
+              // æ¯æ¬¡è·¯ç±åæ¢æ¶æ°æ®å¨é¨å è½½å®æåè°ç¨ï¼æ²¡æåæ°ã
+              // ...
+              var href = window.location.href;
+              var str1 = href.split("#")[1].split("/");
+              var str2 = href.indexOf("?");
+              if (!mydialog.id1 && !mydialog.id2) {
+                var allmenu = mydialog.def.dataList;
+                var menuStr = "";
+                var _this = this;
+                var flag = false;
+                for (var index = 0; index < allmenu.length; index++) {
+                  if ("/" + allmenu[index].href == vm.route.path) {
+                    mydialog.id1 = allmenu[index].id;
+                    mydialog.id2 = allmenu[index].children[0].id;
+                    mydialog.changeNav1(allmenu[index].id);
+                    mydialog.changeNav2(allmenu[index].children[0].id);
+
+                    return;
+                  }
+                }
+                for (var index = 0; index < allmenu.length; index++) {
+                  var menu1 = allmenu[index];
+                  menu1.children.forEach(function (menu2) {
+                    if ("/" + menu1.href == vm.route.path) {
+                      mydialog.id1 = menu1.id;
+                      mydialog.id2 = menu2.id;
+                      mydialog.changeNav1(menu1.id);
+                      mydialog.changeNav2(menu2.id);
+                      return;
+                    }
+                  });
+                }
+                for (var index = 0; index < allmenu.length; index++) {
+                  var menu1 = allmenu[index];
+                  menu1.children.forEach(function (menu2) {
+                    if (menu2.three) {
+                      for (var index = 0; index < menu2.three.length; index++) {
+                        var obj = menu2.three[index];
+
+                        if (
+                          "/" + obj.href == vm.route.path ||
+                          "/" + obj.href == vm.route.path.split("?")[0]
+                        ) {
+                          mydialog.id1 = menu1.id;
+                          mydialog.id2 = menu2.id;
+                          mydialog.changeNav1(menu1.id);
+                          mydialog.changeNav2(menu2.id);
+                        }
+                      }
+                    }
+                  });
+                }
+              } else {
+                if (window.location.href == "/") {
+                  mydialog.changeNav1("introduce");
+                  mydialog.changeNav2("mini");
+                } else {
+                  mydialog.changeNav1(mydialog.id1);
+                  mydialog.changeNav2(mydialog.id2);
+                }
+              }
+
+              mydialog.insertnav(vm);
+
+              // é¡µé¢åå®¹å è½½å®æååå§å/éå»º ViewerJSï¼æ¯æ¬¡è·¯ç±åæ¢ï¼
+              setTimeout(function() {
+                  if (window.Viewer) {
+                      const container = document.getElementById('main');
+                      // å¦æä¹åå·²ç»åå§åï¼åéæ¯ï¼é¿åæ§å®ä¾å¯¼è´æ°é¡µé¢æ æ³å¼¹åº
+                      if (viewerInstance && typeof viewerInstance.destroy === 'function') {
+                          try { viewerInstance.destroy(); } catch (e) {}
+                          viewerInstance = null;
+                      }
+                      // è·åææ¡£ä¸­çææå¾ç
+                      const images = container ? container.querySelectorAll('img') : [];
+                      if (images && images.length > 0 && container) {
+                          // åå§åæ°ç ViewerJS å®ä¾
+                          viewerInstance = new Viewer(container, {
+                              toolbar: {
+                                  zoomIn: 1,
+                                  zoomOut: 1,
+                                  oneToOne: 1,
+                                  reset: 1,
+                                  prev: 1,
+                                  play: 0, // ä¸æ¾ç¤ºæ­æ¾æé®
+                                  next: 1,
+                                  rotateLeft: 1,
+                                  rotateRight: 1,
+                                  flipHorizontal: 1,
+                                  flipVertical: 1,
+                              },
+                              // æé®æ é¢
+                              title: false,
+                              // é®çæ¯æ
+                              keyboard: true,
+                              // é¼ æ æ»è½®ç¼©æ¾
+                              zoomable: true,
+                              // é¼ æ æå¨
+                              movable: true,
+                              // æè½¬åè½
+                              rotatable: false,
+                              // ç¿»è½¬åè½
+                              scalable: false,
+                              // è¿æ¸¡å¨ç»
+                              transition: true,
+                              // å¨å±æ¨¡å¼
+                              fullscreen: true,
+                              // å¾ªç¯æ¥ç
+                              loop: true,
+                              // æå°ç¼©æ¾æ¯ä¾
+                              minZoomRatio: 0.3,
+                              // æå¤§ç¼©æ¾æ¯ä¾
+                              maxZoomRatio: 5,
+                              // ç¼©æ¾æ¯ä¾
+                              zoomRatio: 0.1,
+                          });
+                      }
+                  }
+              }, 100);
+            });
+          },
+        ],
+      };
+    </script>
+    <script src="./js/docsify.js"></script>
+    <script src="./js/search.js"></script>
+    <script src="./js/docsify-copy-code.js"></script>
+    <script src="./js/docsify-sidebar-collapse.min.js"></script>
+    <script src="./js/jquery.js"></script>
+
+
+    <script src="./js/jquery.goup.js"></script>
+    <script src="./js/classie.js"></script>
+    <script src="./js/pagination.js"></script>
+
+    <script src="./js/hightlight.js"></script>
+    <script src="./js/viewer.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $.goup({
+          trigger: 100,
+          bottomOffset: 52,
+          locationOffset: 25,
+          titleAsText: true,
+        });
+      });
+    </script>
+  </body>
+</html>
+
